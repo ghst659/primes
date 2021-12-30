@@ -59,14 +59,25 @@ class TestIsPrime(unittest.TestCase):
 
 class TestBSearch(unittest.TestCase):
     def test_various(self):
-        self.assertEqual(sieve.bsearch(5, (2, 5)), 5)
+        self.assertEqual(sieve.bsearch(5, (2, 5)), 1)
         self.assertEqual(sieve.bsearch(1, (2, 3, 5)), None)
-        self.assertEqual(sieve.bsearch(2, (2, 3, 5)), 2)
-        self.assertEqual(sieve.bsearch(4, (2, 3, 5)), 3)
-        self.assertEqual(sieve.bsearch(4, (2, 5)), 2)
-        self.assertEqual(sieve.bsearch(3, (2, 3, 5)), 3)
-        self.assertEqual(sieve.bsearch(6, (2, 3, 5)), 5)
-        self.assertEqual(sieve.bsearch(5, (2, 3, 5, 7)), 5)
+        self.assertEqual(sieve.bsearch(2, (2, 3, 5)), 0)
+        self.assertEqual(sieve.bsearch(4, (2, 3, 5)), 1)
+        self.assertEqual(sieve.bsearch(4, (2, 5)), 0)
+        self.assertEqual(sieve.bsearch(3, (2, 3, 5)), 1)
+        self.assertEqual(sieve.bsearch(6, (2, 3, 5)), 2)
+        self.assertEqual(sieve.bsearch(5, (2, 3, 5, 7)), 2)
+
+class TestAppend(unittest.TestCase):
+    def test_with_preexisting(self):
+        primes = (2, 3, 5)
+        self.assertEqual(sieve.additional(2, primes), [])
+        self.assertEqual(sieve.additional(4, primes), [])
+        self.assertEqual(sieve.additional(5, primes), [])
+        self.assertEqual(sieve.additional(6, primes), [])
+        self.assertEqual(sieve.additional(7, primes), [7])
+        self.assertEqual(sieve.additional(29, primes), [7, 11, 13, 17, 19, 23, 29])
+        self.assertEqual(sieve.additional(40, primes), [7, 11, 13, 17, 19, 23, 29, 31, 37])
 
 if __name__ == '__main__':
     unittest.main()
