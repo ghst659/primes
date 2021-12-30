@@ -41,7 +41,7 @@ class TestSieve(unittest.TestCase):
     def setUp(self):
         logging.getLogger().setLevel(logging.INFO)
 
-    def test_basic(self):
+    def test_cases(self):
         for c in _CASES:
             logging.info('Case %d', c.n)
             self.assertEqual(sieve.sieve(c.n), c.want)
