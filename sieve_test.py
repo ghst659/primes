@@ -37,7 +37,6 @@ _CASES = [
 ]
 
 class TestSieve(unittest.TestCase):
-
     def setUp(self):
         logging.getLogger().setLevel(logging.INFO)
 
@@ -78,6 +77,17 @@ class TestAppend(unittest.TestCase):
         self.assertEqual(sieve.additional(7, primes), [7])
         self.assertEqual(sieve.additional(29, primes), [7, 11, 13, 17, 19, 23, 29])
         self.assertEqual(sieve.additional(40, primes), [7, 11, 13, 17, 19, 23, 29, 31, 37])
+
+class TestIncremental(unittest.TestCase):
+    def setUp(self):
+        logging.getLogger().setLevel(logging.INFO)
+
+    def test_cases(self):
+        for c in _CASES:
+            logging.info('Incremental %d', c.n)
+            primes = sieve.isieve(c.n)
+            self.assertEqual(primes, c.want)
+
 
 if __name__ == '__main__':
     unittest.main()

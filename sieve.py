@@ -48,6 +48,8 @@ _primes_lock = threading.Lock()  # Concurrency lock for _primes
 
 def isieve(n: int) -> list[int]:
     """Incremental sieve."""
+    global _primes
+    global _primes_lock
     if n < 2:
         return []
     with _primes_lock:
