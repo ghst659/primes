@@ -49,10 +49,24 @@ class TestSieve(unittest.TestCase):
             self.assertTrue(all(sieve.is_prime(p) for p in primes))
 
 class TestIsPrime(unittest.TestCase):
-    def test_numbers(self):
+    def test_primes(self):
         for n in (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 999863):
             self.assertTrue(sieve.is_prime(n))
 
+    def test_nonprimes(self):
+        for n in (0, 1, 4, 6, 8, 9, 10, 12, 14, 15, 21, 25):
+            self.assertFalse(sieve.is_prime(n))
+
+class TestBSearch(unittest.TestCase):
+    def test_various(self):
+        self.assertEqual(sieve.bsearch(5, (2, 5)), 5)
+        self.assertEqual(sieve.bsearch(1, (2, 3, 5)), None)
+        self.assertEqual(sieve.bsearch(2, (2, 3, 5)), 2)
+        self.assertEqual(sieve.bsearch(4, (2, 3, 5)), 3)
+        self.assertEqual(sieve.bsearch(4, (2, 5)), 2)
+        self.assertEqual(sieve.bsearch(3, (2, 3, 5)), 3)
+        self.assertEqual(sieve.bsearch(6, (2, 3, 5)), 5)
+        self.assertEqual(sieve.bsearch(5, (2, 3, 5, 7)), 5)
 
 if __name__ == '__main__':
     unittest.main()
