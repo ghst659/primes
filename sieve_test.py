@@ -44,7 +44,9 @@ class TestSieve(unittest.TestCase):
     def test_cases(self):
         for c in _CASES:
             logging.info('Case %d', c.n)
-            self.assertEqual(sieve.sieve(c.n), c.want)
+            primes = sieve.sieve(c.n)
+            self.assertEqual(primes, c.want)
+            self.assertTrue(all(sieve.is_prime(p) for p in primes))
 
 class TestIsPrime(unittest.TestCase):
     def test_numbers(self):
