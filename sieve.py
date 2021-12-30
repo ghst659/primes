@@ -15,3 +15,7 @@ def sieve(n: int) -> list[int]:
             for v in range(p * p, size, p):
                 is_prime[v] = False
     return [p for p in range(size) if is_prime[p]]
+
+def is_prime(n: int) -> bool:
+    """Checks if a positive integer N is a prime number by brute force."""
+    return n > 1 and all(n % d != 0 for d in range(2, n))

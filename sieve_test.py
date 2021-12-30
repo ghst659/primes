@@ -46,5 +46,11 @@ class TestSieve(unittest.TestCase):
             logging.info('Case %d', c.n)
             self.assertEqual(sieve.sieve(c.n), c.want)
 
+class TestIsPrime(unittest.TestCase):
+    def test_numbers(self):
+        for n in (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 999863):
+            self.assertTrue(sieve.is_prime(n))
+
+
 if __name__ == '__main__':
     unittest.main()
