@@ -71,8 +71,8 @@ def isieve(n: int) -> list[int]:
             raise IndexError(f'invalid index: {hi_idx} vs {last_idx}')
 
 def additional(n: int, previous_primes: Sequence[int]) -> list[int]:
-    vbase = previous_primes[-1]
-    if n == vbase:
+    vbase = previous_primes[-1] if previous_primes else 1
+    if n < 2 or n == vbase:
         return []
     # Create an scratch array for numbers between the previous_primes and n.
     is_prime = [True] * (n - vbase)  # does not include vbase
@@ -83,12 +83,13 @@ def additional(n: int, previous_primes: Sequence[int]) -> list[int]:
         """Maps a value to an is_prime index."""
         return v - vbase - 1
     # Mark array with multiples of previous primes
-    for i in range(len(is_prime)):
-        value_to_check = i2v(i)
-        for p in previous_primes:
-            if value_to_check % p == 0:
-                is_prime[i] = False
-                break
+    if previous_primes:
+        for i in range(len(is_prime)):
+            value_to_check = i2v(i)
+            for p in previous_primes:
+                if value_to_check % p == 0:
+                    is_prime[i] = False
+                    break
     # Identify new primes to be returned.
     new_primes = []
     # Mark is_prime for newly discovered primes
@@ -96,7 +97,7 @@ def additional(n: int, previous_primes: Sequence[int]) -> list[int]:
         p = i2v(i)
         if is_prime[i]:
             new_primes.append(p)
-            for v in range(p * p, n + 1, p):
+            for v in range(p * p, n + 1, p if p == 2 else 2 * p):
                 k = v2i(v)
                 is_prime[k] = False
     return new_primes

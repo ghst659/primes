@@ -71,6 +71,12 @@ class TestBSearch(unittest.TestCase):
         self.assertEqual(sieve.bsearch(5, (2, 3, 5, 7)), 2)
 
 class TestAppend(unittest.TestCase):
+    def test_empty(self):
+        self.assertEqual(sieve.additional(1, []), [])
+        self.assertEqual(sieve.additional(2, []), [2])
+        self.assertEqual(sieve.additional(8, []), [2, 3, 5, 7])
+        self.assertEqual(sieve.additional(11, []), [2, 3, 5, 7, 11])
+
     def test_with_preexisting(self):
         primes = (2, 3, 5)
         self.assertEqual(sieve.additional(2, primes), [])
