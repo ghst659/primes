@@ -34,6 +34,9 @@ _CASES = [
     Case(n = 100,
          want = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47,
                  53, 59, 61, 67, 71, 73, 79, 83, 89, 97]),
+    Case(n = 121,
+         want = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
+                 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113]),
 ]
 
 class TestSieve(unittest.TestCase):
@@ -77,17 +80,21 @@ class TestAppend(unittest.TestCase):
         self.assertEqual(sieve.additional(7, primes), [7])
         self.assertEqual(sieve.additional(29, primes), [7, 11, 13, 17, 19, 23, 29])
         self.assertEqual(sieve.additional(40, primes), [7, 11, 13, 17, 19, 23, 29, 31, 37])
+        self.assertEqual(sieve.additional(121, primes),
+                         [7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47,
+                          53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101,
+                          103, 107, 109, 113])
 
 class TestIncremental(unittest.TestCase):
     def setUp(self):
         logging.getLogger().setLevel(logging.INFO)
 
-    def test_cases(self):
-        for c in _CASES:
-            logging.info('Incremental %d', c.n)
-            primes = sieve.isieve(c.n)
-            self.assertEqual(primes, c.want)
-
+    def test_edge(self):
+        self.assertEqual(sieve.isieve(5), [2, 3, 5])
+        self.assertEqual(sieve.isieve(121),
+                         [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37,
+                         41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83,
+                         89, 97, 101, 103, 107, 109, 113])
 
 if __name__ == '__main__':
     unittest.main()

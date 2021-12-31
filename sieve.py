@@ -96,7 +96,7 @@ def additional(n: int, previous_primes: Sequence[int]) -> list[int]:
         p = i2v(i)
         if is_prime[i]:
             new_primes.append(p)
-            for v in range(p * p, n, p):
+            for v in range(p * p, n + 1, p):
                 k = v2i(v)
                 is_prime[k] = False
     return new_primes
