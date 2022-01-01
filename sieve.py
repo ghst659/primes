@@ -102,12 +102,15 @@ def additional(n: int, previous_primes: Sequence[int]) -> list[int]:
                 is_prime[k] = False
     return new_primes
 
-def generate(start: int, end: int) -> typing.Generator[int, None, None]:
-    """A generator of prime numbers between START and END inclusive."""
+def generate(lo: int, hi: int) -> typing.Generator[int, None, None]:
+    """Generates prime numbers between LO and HI inclusive."""
     primes = []
     candidate = 2
     increment = 1
-    while candidate <= end:
+    while candidate <= hi:
+        # Implementation below is faster than using
+        #  is_prime = all(candidate % p != 0 for p in primes)
+        # possibly because of generator creation with all().
         is_prime = True
         for p in primes:
             if candidate % p == 0:
@@ -115,7 +118,7 @@ def generate(start: int, end: int) -> typing.Generator[int, None, None]:
                 break
         if is_prime:
             primes.append(candidate)
-            if candidate >= start:
+            if candidate >= lo:
                 yield candidate
         candidate += increment
         increment = 2

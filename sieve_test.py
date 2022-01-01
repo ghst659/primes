@@ -102,5 +102,12 @@ class TestIncremental(unittest.TestCase):
                          41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83,
                          89, 97, 101, 103, 107, 109, 113])
 
+class TestGenerator(unittest.TestCase):
+    def test_various(self):
+        self.assertEqual(list(sieve.generate(0, 2)), [2])
+        self.assertEqual(list(sieve.generate(10, 20)), [11, 13, 17, 19])
+        self.assertEqual(list(sieve.generate(10, 10)), [])
+        self.assertEqual(list(sieve.generate(23, 23)), [23])
+
 if __name__ == '__main__':
     unittest.main()
