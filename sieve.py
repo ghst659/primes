@@ -101,3 +101,21 @@ def additional(n: int, previous_primes: Sequence[int]) -> list[int]:
                 k = v2i(v)
                 is_prime[k] = False
     return new_primes
+
+def generate(start: int, end: int) -> typing.Generator[int, None, None]:
+    """A generator of prime numbers between START and END inclusive."""
+    primes = []
+    candidate = 2
+    increment = 1
+    while candidate <= end:
+        is_prime = True
+        for p in primes:
+            if candidate % p == 0:
+                is_prime = False
+                break
+        if is_prime:
+            primes.append(candidate)
+            if candidate >= start:
+                yield candidate
+        candidate += increment
+        increment = 2
