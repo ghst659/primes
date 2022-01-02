@@ -1,0 +1,25 @@
+// Prime-number service.
+//
+// To build:
+// $ pip3 install -U pip setuptools wheel
+// $ pip3 install -U grpcio grpcio-tools grpclib protobuf grpcio-reflection
+// $ python3 -m grpc_tools.protoc -I. -{,grpc_}python_out=. primes.proto
+
+syntax = "proto3";
+
+package primes;
+
+service Primes {
+  // Get a list of prime numbers
+  rpc Sieve (SieveRequest) returns (SieveResponse) {}
+}
+
+message SieveRequest {
+  // The maximum value prime number to return.
+  int32 hi = 1;
+}
+
+message SieveResponse {
+  // Successive prime numbers.
+  repeated int32 p = 1;
+}
